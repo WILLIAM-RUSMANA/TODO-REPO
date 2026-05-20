@@ -1,10 +1,13 @@
 // app/page.tsx
+
+export const dynamic = "force-dynamic";
+
 import { auth, signIn, signOut } from "@/auth";
 import { createTodo, deleteTodo, toggleTodo } from "./actions/todoActions";
-import { PrismaClient } from "@prisma/client";
+import { prisma } from "@/lib/prisma";
 import { Trash2, CheckCircle, Circle, LogOut, Plus } from "lucide-react";
 
-const prisma = new PrismaClient();
+// const prisma = new PrismaClient();
 
 export default async function Home() {
   const session = await auth();
@@ -57,7 +60,7 @@ export default async function Home() {
 
         {/* List */}
         <ul className="divide-y border-t">
-          {todos.map((todo) => (
+          {todos.map((todo: { id: string; content: string; completed: boolean }) => (
             <li key={todo.id} className="flex items-center justify-between p-6 hover:bg-gray-50">
               <div className="flex items-center gap-4 flex-1">
                 <form action={toggleTodo.bind(null, todo.id, todo.completed)}>

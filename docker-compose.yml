@@ -1,0 +1,9 @@
+services:
+  web:
+    image: williamer/nextjs-week10-app:v1
+    container_name: nextjs-week10-container
+    ports:
+      - "8080:3000"
+    environment:
+      - NODE_ENV=production
+    restart: unless-stopped

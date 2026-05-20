@@ -3,8 +3,9 @@ import Google from "next-auth/providers/google";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { prisma } from "@/lib/prisma";
 
+// Inside auth.ts
 export const { handlers, auth, signIn, signOut } = NextAuth({
-  adapter: PrismaAdapter(prisma),
+  adapter: PrismaAdapter(prisma as any), // 👈 Add "as any" right here
   providers: [Google],
   callbacks: {
     session({ session, user }) {
